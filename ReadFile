@@ -1,0 +1,104 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+
+	public static int simulationDuration;
+	public static int intersectionNumber;
+	public static int streetNumber;
+	public static int carNumber;
+	public static int bonus;
+	
+	public static HashMap<String, Route> routes = new HashMap<>();
+	public static HashMap<Integer, ArrayList<String>> cars = new HashMap<>();
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		readFile();
+		
+		printer();
+	}
+	
+	public static void readFile()
+	{
+		try
+		{
+			File inputFile = new File("a.txt");
+			Scanner fileReader = new Scanner(inputFile);
+			
+			// assign parameters to variables from the first line
+			String parametersLine = fileReader.nextLine();
+			
+			String[] parameters = parametersLine.split(" ");
+			
+			simulationDuration = Integer.parseInt(parameters[0]);
+			intersectionNumber = Integer.parseInt(parameters[1]);
+			streetNumber = Integer.parseInt(parameters[2]);
+			carNumber = Integer.parseInt(parameters[3]);
+			bonus = Integer.parseInt(parameters[4]);
+			
+			//reading streets
+			for(int i = 0; i < streetNumber; i++)
+			{
+				String line = fileReader.nextLine();
+				String[] attributes = line.split(" ");
+				
+				routes.put(attributes[2], new Route(
+						Integer.parseInt(attributes[0]),
+						Integer.parseInt(attributes[1]),
+						attributes[2],
+						Integer.parseInt(attributes[3])
+						));
+			}
+			
+			// reading cars
+			int i = 0;
+			while(fileReader.hasNextLine())
+			{
+				String line = fileReader.nextLine();
+				String[] attributes = line.split(" ");
+				
+				ArrayList<String> streets = new ArrayList<>();
+				
+				for(int k = 1; k < attributes.length; k++)
+				{
+					streets.add(attributes[k]);
+				}
+				
+				cars.put(i, streets);
+				i++;
+			}
+			
+			
+			fileReader.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Error! Probably the file was not found");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void printer()
+	{
+		//print params, routes and cars
+
+		System.out.println("duration of simulation: " + simulationDuration);
+		System.out.println("intersection Number: " + intersectionNumber);
+		System.out.println("number of streets: " + streetNumber);
+		System.out.println("number of cars: " + carNumber);
+		System.out.println("bonus for finished: " + bonus);
+		
+		
+		//couple of routes
+		System.out.println("Route of key " + "rue-de-londres" + ": " + routes.get("rue-de-londres"));
+		System.out.println("Route of key " + "rue-d-amsterdam" + ": " + routes.get("rue-d-amsterdam"));
+		System.out.println("Route of key " + "rue-d-athenes" + ": " + routes.get("rue-d-athenes"));
+		
+		//couple of cars
+	}
+
+}
