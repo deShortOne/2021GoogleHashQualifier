@@ -14,7 +14,13 @@ public class Main {
 	public static int bonus;
 	
 	public static HashMap<String, Route> routes = new HashMap<>();
-	public static HashMap<Integer, ArrayList<String>> cars = new HashMap<>();
+	// length of the route
+	public static HashMap<Integer, Car> cars = new HashMap<>();
+	
+	
+	
+	//to delete
+	//public static HashMap<Integer, ArrayList<String>> cars = new HashMap<>();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -55,8 +61,9 @@ public class Main {
 						));
 			}
 			
-			// reading cars
+			
 			int i = 0;
+			// reading cars
 			while(fileReader.hasNextLine())
 			{
 				String line = fileReader.nextLine();
@@ -69,7 +76,8 @@ public class Main {
 					streets.add(attributes[k]);
 				}
 				
-				cars.put(i, streets);
+				/////////////////// put length instead of 1
+				cars.put(i, new Car(Integer.parseInt(attributes[0]), streets));
 				i++;
 			}
 			
@@ -97,8 +105,14 @@ public class Main {
 		System.out.println("Route of key " + "rue-de-londres" + ": " + routes.get("rue-de-londres"));
 		System.out.println("Route of key " + "rue-d-amsterdam" + ": " + routes.get("rue-d-amsterdam"));
 		System.out.println("Route of key " + "rue-d-athenes" + ": " + routes.get("rue-d-athenes"));
+		System.out.println("Route of key " + "rue-de-rome" + ": " + routes.get("rue-de-rome"));
+		System.out.println("Route of key " + "rue-de-moscou" + ": " + routes.get("rue-de-moscou"));
 		
 		//couple of cars
+		System.out.println("Car of length " + 0 + " " + cars.get(0));
+		System.out.println("Car of length " + 1 + " " + cars.get(1));
+		
+		
 	}
 
 }
